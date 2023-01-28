@@ -37,17 +37,16 @@ const { getUsers, getUserById, updateUser } = require('./routes/users');
 app.get('/users/', getUsers);
 app.get('/users/:id', getUserById);
 app.put('/users/:id', updateUser);
-// app.delete('/users/:id', user.deleteUser);
 
 // GET /products?category={categoryId}
 const { getProductsByCategory, getProductById } = require('./routes/products');
 app.get('/products/', getProductsByCategory);
 app.get('/products/:id', getProductById);
 
-const cart = require('./routes/cart');
+const { viewCart, addItemToCart } = require('./routes/cart');
 // app.post('cart', cart.createNewCart);
-// app.post('cart/:id', cart.addCartItem);
-// app.get('cart/:id', cart.getCartById);
+app.get('/cart/:id', viewCart);
+app.post('/cart/:id', addItemToCart);
 
 // app.post('cart/:id/checkout', cart.checkOutCart);
 

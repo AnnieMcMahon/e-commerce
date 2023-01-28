@@ -5,29 +5,36 @@
 
 const db = require('../db');
 
-const createNewCart = (request, response) => {
-  const {  } = request.body
-//to be completed
+const viewCart = (request, response) => {
+  const id = parseInt(request.params.id)
+  db.query('SELECT * FROM cart_items WHERE user_id = $1', [id], (error, results) => {
+    if (error) {
+      throw error
+    }
+    response.status(200).json(results.rows)
+  })
 };
 
-const addCartItem = (request, response) => {
-  const {  } = request.body
-//to be completed
+const addItemToCart = (request, response) => {
+  const userId = parseInt(request.params.id);
+  const productId = parseInt(request.query.productId);
+  const qty = 1;
+  db.query('INSERT INTO cart_items (user_id, product_id, quantity) VALUES ($1, $2, $3)', 
+  [userId, productId, qty], (error, results) => {
+    if (error) {
+      throw error
+    }
+    response.status(201).send(userId, productId, qty);
+  })
 };
 
-const getCartById = (request, response) => {
-  const { id } = request.body
-//to be completed
-};
-
-const checkOutCart = (request, response) => {
-  const { id } = request.body
-  //to be completed
-}
+// const checkOutCart = (request, response) => {
+//   const { id } = request.body
+//   //to be completed
+// }
 
 module.exports = {
-  createNewCart,
-  addCartItem,
-  getCartById,
-  checkOutCart
+  viewCart,
+  addItemToCart
+  // checkOutCart
 };

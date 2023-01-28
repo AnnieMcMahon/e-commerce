@@ -1,9 +1,5 @@
 const db = require('../db');
 
-// GET /users
-// GET /users/{userId}
-// PUT /users/{userId}
-
 const getUsers = (request, response) => {
   db.query('SELECT * FROM users ORDER BY id ASC', (error, results) => {
     if (error) {
@@ -24,7 +20,7 @@ const getUserById = (request, response) => {
 };
 
 // const getUserByEmail = (request, response) => {
-//   const email = parseInt(request.params.email)
+//   const email = request.params.email;
 //   db.query('SELECT * FROM users WHERE email = $1', [email], (error, results) => {
 //     if (error) {
 //       throw error
