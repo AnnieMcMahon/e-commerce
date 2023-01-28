@@ -32,10 +32,11 @@ app.get('/', (request, response) => { response.json({ info: 'Node.js, Express, a
 // app.post('/login', req.authenticate,reg.loginUser);
 
 //http://localhost:4001/users/1 to test
-const { getUsers, getUserById } = require('./routes/users');
+//http://localhost:4001/users/1?email=user1@yahoo.com&password=1234567 to test PUT path
+const { getUsers, getUserById, updateUser } = require('./routes/users');
 app.get('/users/', getUsers);
 app.get('/users/:id', getUserById);
-// app.put('/users/:id', user.updateUser);
+app.put('/users/:id', updateUser);
 // app.delete('/users/:id', user.deleteUser);
 
 // GET /products?category={categoryId}

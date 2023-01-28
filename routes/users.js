@@ -34,8 +34,10 @@ const getUserById = (request, response) => {
 // };
 
 const updateUser = (request, response) => {
-  const id = parseInt(request.params.id)
-  const { email, password } = request.body
+  console.log(response);
+  const id = parseInt(request.params.id);
+  const email = request.query.email;
+  const password = request.query.password;
   db.query(
     'UPDATE users SET email = $1, password = $2 WHERE id = $3',
     [email, password, id],
