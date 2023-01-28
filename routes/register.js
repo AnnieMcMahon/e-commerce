@@ -2,46 +2,46 @@ const db = require('../db');
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 
-app.use(passport.initialize());
-app.use(passport.session());
+// app.use(passport.initialize());
+// app.use(passport.session());
 
-passport.serializeUser((user, done) => {
-  done(null, user.id);
-});
+// passport.serializeUser((user, done) => {
+//   done(null, user.id);
+// });
 
-const { getUserById, getUserByEmail } = require('./users');
+// const { getUserById, getUserByEmail } = require('./users');
 
-passport.deserializeUser((id, done) => {
-  getUserById(id, function (err, user) {
-    if (err) {
-      return done(err);
-    }
-    done(null, user);
-  })
-});
+// passport.deserializeUser((id, done) => {
+//   getUserById(id, function (err, user) {
+//     if (err) {
+//       return done(err);
+//     }
+//     done(null, user);
+//   })
+// });
 
-passport.use(
-  new LocalStrategy(function (email, password, done) {
-    getUserByEmail(email, function (err, user) {
-      if (err) {
-        return done(err);
-      }
-      if (!user) {
-        return done(null, false);
-      }
-      if (user.password != password) {
-        return done(null, false);
-      }
-      return done(null, user);
-    })
-  }));
+// passport.use(
+//   new LocalStrategy(function (email, password, done) {
+//     getUserByEmail(email, function (err, user) {
+//       if (err) {
+//         return done(err);
+//       }
+//       if (!user) {
+//         return done(null, false);
+//       }
+//       if (user.password != password) {
+//         return done(null, false);
+//       }
+//       return done(null, user);
+//     })
+//   }));
 
-const loginUser = (request, response) => {
-  response.redirect("/profile");
-};
+// const loginUser = (request, response) => {
+//   response.redirect("/profile");
+// };
 
-const authenticate = passport.authenticate("local", 
-{ failureRedirect: "/login" });
+// const authenticate = passport.authenticate("local", 
+// { failureRedirect: "/login" });
 
 const registerUser = (request, response) => {
   const { email, password } = request.body
@@ -55,7 +55,7 @@ const registerUser = (request, response) => {
 };
 
 module.exports = {
-  loginUser,
-  registerUser, 
-  authenticate
+  // loginUser,
+  registerUser 
+  // authenticate
 };

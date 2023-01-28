@@ -13,7 +13,6 @@ const getUsers = (request, response) => {
   })
 }
 
-
 const getUserById = (request, response) => {
   const id = parseInt(request.params.id)
   db.query('SELECT * FROM users WHERE id = $1', [id], (error, results) => {
@@ -24,15 +23,15 @@ const getUserById = (request, response) => {
   })
 };
 
-const getUserByEmail = (request, response) => {
-  const email = parseInt(request.params.email)
-  db.query('SELECT * FROM users WHERE email = $1', [email], (error, results) => {
-    if (error) {
-      throw error
-    }
-    response.status(200).json(results.rows)
-  })
-};
+// const getUserByEmail = (request, response) => {
+//   const email = parseInt(request.params.email)
+//   db.query('SELECT * FROM users WHERE email = $1', [email], (error, results) => {
+//     if (error) {
+//       throw error
+//     }
+//     response.status(200).json(results.rows)
+//   })
+// };
 
 const updateUser = (request, response) => {
   const id = parseInt(request.params.id)
@@ -51,6 +50,6 @@ const updateUser = (request, response) => {
 module.exports = {
   getUsers,
   getUserById,
-  getUserByEmail,
+  // getUserByEmail,
   updateUser
 };
