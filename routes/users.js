@@ -1,4 +1,18 @@
-const db = require('../db')
+const db = require('../db');
+
+// GET /users
+// GET /users/{userId}
+// PUT /users/{userId}
+
+const getUsers = (request, response) => {
+  db.query('SELECT * FROM users ORDER BY id ASC', (error, results) => {
+    if (error) {
+      throw error
+    }
+    response.status(200).json(results.rows)
+  })
+}
+
 
 const getUserById = (request, response) => {
   const id = parseInt(request.params.id)
@@ -10,14 +24,13 @@ const getUserById = (request, response) => {
   })
 };
 
-const createUser = (request, response) => {
-  const { email, password } = request.body
-  db.query('INSERT INTO users (email, password) VALUES ($1, $2) RETURNING *', [email, password], 
-    (error, results) => {
+const getUserByEmail = (request, response) => {
+  const email = parseInt(request.params.email)
+  db.query('SELECT * FROM users WHERE email = $1', [email], (error, results) => {
     if (error) {
       throw error
     }
-    response.status(201).send(`User added with ID: ${results.rows[0].id}`)
+    response.status(200).json(results.rows)
   })
 };
 
@@ -35,19 +48,9 @@ const updateUser = (request, response) => {
     })
 };
 
-const deleteUser = (request, response) => {
-  const id = parseInt(request.params.id)
-  db.query('DELETE FROM users WHERE id = $1', [id], (error, results) => {
-    if (error) {
-      throw error
-    }
-    response.status(200).send(`User deleted with ID: ${id}`)
-  })
-};
-
 module.exports = {
+  getUsers,
   getUserById,
-  createUser,
-  updateUser,
-  deleteUser
+  getUserByEmail,
+  updateUser
 };
