@@ -43,16 +43,17 @@ const { getProductsByCategory, getProductById } = require('./routes/products');
 app.get('/products/', getProductsByCategory);
 app.get('/products/:id', getProductById);
 
-const { viewCart, addItemToCart } = require('./routes/cart');
-// app.post('cart', cart.createNewCart);
+const { viewCart, addItemToCart, updateQuantity } = require('./routes/cart');
 app.get('/cart/:id', viewCart);
 app.post('/cart/:id', addItemToCart);
+app.put('/cart/:id', updateQuantity);
+
 
 // app.post('cart/:id/checkout', cart.checkOutCart);
 
-const order = require('./routes/orders');
-// app.get('/orders/', order.getOrders);
-// app.get('/orders/:id', order.getOrderById);
+const { getOrders, getOrderById } = require('./routes/orders');
+// app.get('/orders/', getOrders);
+// app.get('/orders/:id', getOrderById);
 
 app.listen(PORT, () => {
   console.log(`Server is listening on port ${PORT}`);
