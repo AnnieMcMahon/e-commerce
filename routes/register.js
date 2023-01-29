@@ -12,17 +12,12 @@ const registerUser = (request, response) => {
     })
 };
 
-// const loginUser = (request, response) => {
-//   response.redirect("/profile");
-// };
-
-// const authenticate = passport.authenticate("local", 
-// { failureRedirect: "/login" });
-
+const loginUser = (request, response) => {
+  response.redirect('/cart');
+};
 
 
 module.exports = {
-  // loginUser,
+  loginUser,
   registerUser 
-  // authenticate
 };
