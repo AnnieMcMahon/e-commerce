@@ -1,0 +1,214 @@
+openapi: 3.0.3
+info:
+  title: E-Commerce Project
+  version: 1.0.0
+  description: Codecademy project to practice connecting a SQL database with a backend server
+paths:
+  /:
+    summary: main path
+    get:
+      summary: get to the main screen of the app
+      description: This is the app's starting point
+      operationId: get_home
+      responses:
+        default:
+          description: Default error sample response
+      tags:
+        - Home
+  /register:
+    summary: register a new user
+    post:
+      summary: register a new user
+      description: Validate a new user using Passport and add the e-mail and password to the database
+      operationId: register_user
+      responses:
+        '201':
+          description: successful registration
+          content:
+            text/plain; charset=utf-8:
+              examples:
+                Successful Registration:
+                  value: '`User added: ${email}`'
+        default:
+          description: Default error sample response
+      tags:
+        - Register
+  /login:
+    summary: login an existing user
+    post:
+      summary: login an existing user
+      description: Validate a user using Passport and allowing the user to access the cart page, if any
+      operationId: login_user
+      responses:
+        default:
+          description: Default error sample response
+      tags:
+        - Login
+  /users:
+    summary: access all users in the database
+    get:
+      summary: access all users
+      description: Access all users in the database
+      operationId: access_users
+      responses:
+        '200':
+          description: Successful query of all users
+          content:
+            application/json:
+              examples:
+                Successful Query of All Users:
+                  value: >-
+                    [{"id":1,"email":"user1@yahoo.com","password":"1234567"},{"id":2,"email":"user2@yahoo.com","password":"22224565"},{"id":3,"email":"user3@gmail.com","password":"3333333"}]
+        default:
+          description: Default error sample response
+      tags:
+        - Users
+  /users/{id}:
+    summary: access a user by ID
+    parameters:
+    - name: id
+      in: path
+      description: 'user ID'
+      required: true
+      schema:
+        type: integer   
+    get:
+      summary: get a user by ID
+      description: Get a user information by ID
+      operationId: get_user
+
+      responses:
+        '200':
+          description: Successful query of one user
+          content:
+            application/json:
+              examples:
+                Successful Query of One User:
+                  value: '[{"id":1,"email":"user1@yahoo.com","password":"1234567"}]'
+        default:
+          description: Default error sample response
+      tags:
+        - Users
+    put:
+      summary: update user by ID
+      description: Update a user's e-mail or password using the user ID
+      operationId: update_user
+      responses:
+        '200':
+          description: Successful user update
+          content:
+            text/plain; charset=utf-8:
+              examples:
+                Successful User Update:
+                  value: '`User modified with ID: ${id}`'
+        default:
+          description: Default error sample response
+      tags:
+        - Users
+  /products&category={categoryId):
+    summary: access products by category
+    description: 'use parameters to search for products by category ID '
+    get:
+      summary: get product by category ID
+      description: Get all products listed under the selected category
+      operationId: get_products
+      responses:
+        '200':
+          description: Successful product category query
+          content:
+            application/json:
+              examples:
+                Successful Product Category Query:
+                  value: >-
+                    [{"id":2,"name":"Backpacking
+                    Tent","cost":"200.00","category_id":3},{"id":6,"name":"Sleeping
+                    Bag","cost":"133.33","category_id":3}]
+        default:
+          description: Default error sample response
+      tags:
+        - Products
+  /products/{id}:
+    summary: access a product by ID
+    parameters:
+    - name: id
+      in: path
+      description: 'product ID'
+      required: true
+      schema:
+        type: integer 
+    get:
+      summary: get product by ID
+      description: Get a product by product ID
+      operationId: get_product
+      responses:
+        '200':
+          description: Successful Product Query
+          content:
+            application/json:
+              examples:
+                Successful Product Query:
+                  value: >-
+                    [{"id":4,"name":"Harriman Map
+                    Set","cost":"9.99","category_id":1}]
+        default:
+          description: Default error sample response
+      tags:
+        - Products
+  /cart/{id}:
+    summary: access a cart by user ID
+    parameters:
+    - name: id
+      in: path
+      description: 'cart user ID'
+      required: true
+      schema:
+        type: integer 
+    get:
+      summary: view cart by user ID
+      description: View cart content (products and quantities) by user ID
+      operationId: view_cart
+      responses:
+        '200':
+          description: Successful cart query
+          content:
+            application/json:
+              examples:
+                Successful Cart Query:
+                  value: >-
+                    [{"user_id":2,"product_id":5,"quantity":1},{"user_id":2,"product_id":3,"quantity":2},{"user_id":2,"product_id":8,"quantity":5},{"user_id":2,"product_id":1,"quantity":1}]
+        default:
+          description: Default error sample response
+      tags:
+        - Cart
+    post:
+      summary: add item to cart
+      description: Add an item to a cart by user ID
+      operationId: add_cart_item
+      responses:
+        '201':
+          description: Successful Item Added to Cart
+          content:
+            text/plain; charset=utf-8:
+              examples:
+                Successful Item Added to Cart:
+                  value: 1 1 3
+        default:
+          description: Default error sample response
+      tags:
+        - Cart
+    put:
+      summary: update a cart item's quantity
+      description: 'Update a cart item''s quantity '
+      operationId: update_quantity
+      responses:
+        '200':
+          description: Successful quantity update
+          content:
+            text/plain; charset=utf-8:
+              examples:
+                Successful Quantity Update:
+                  value: '`Quantity updated with ${quantity}`'
+        default:
+          description: Default error sample response
+      tags:
+        - Cart
